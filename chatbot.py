@@ -1,5 +1,37 @@
 import streamlit as st
 import cohere
+import fitz
+
+def extract_text_from_pdf(pdf_path):
+    doc = fitz.open(pdf_path)
+    text = ""
+    for page_num in range(len(doc)):
+        page = doc.load_page(page_num)
+        text += page.get_text()
+    return text
+
+# Sample function to process the text and query LLM
+def process_and_query_llm(text, llm):
+    # Example: Split text into chunks and query each chunk
+    chunks = [text[i:i + 1000] for i in range(0, len(text), 1000)]
+    results = []
+    for chunk in chunks:
+        response = llm.query(chunk)
+        results.append(response)
+    return results
+
+print("Hello")
+
+pdf_path = 'apcsp-ced.pdf'
+pdf_text = extract_text_from_pdf(pdf_path)
+
+# # Process and query
+# responses = process_and_query_llm(pdf_text, cohere_llm)
+
+# # Output responses
+# for i, response in enumerate(responses):
+#     print(f"Response {i + 1}:\n{response}\n")
+
 
 # An example LLM chatbot using Cohere API and Streamlit
 # Adapted from the StreamLit OpenAI Chatbot example - https://github.com/streamlit/llm-examples/blob/main/Chatbot.py
@@ -34,8 +66,7 @@ if prompt := st.chat_input():
     st.chat_message("user").write(prompt)
 
     # Send the user message to the model and capture the response
-    response = client.chat(model="command-r", 
-                           chat_history=st.session_state.messages,
+    response = client.chat(chat_history=st.session_state.messages,
                            message=prompt)
     
     # Add the user prompt to the chat history
