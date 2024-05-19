@@ -80,8 +80,8 @@ if prompt := st.chat_input():
     Respond with advice about which buses will stop the closest to their destination, the name of the stop they 
     should get off at and the name of the suburb that the stop is located in. 
     Finish with brief instructions for how they can get from the stop to their destination.
-    Group the buses you recommend by the time they depart. If the document is about Tai Tam then departure times are 3:15, 4:20 and 5pm. 
-    If the document is about repulse bay all buses depart at 4pm.
+    Group the buses you recommend by the time they depart. If the document is about Tai Tam then group your recommendatios by the following departure times: 3:15, 4:20 and 5pm. 
+    If the document is about repulse bay then state the departure time is 4pm.
     """
 
     # Send the user message and pdf text to the model and capture the response
