@@ -76,13 +76,12 @@ if prompt := st.chat_input():
     st.chat_message("user").write(prompt)
 
     preamble = """You are the Hong Kong International School Bus Helper bot. You help people understand the bus schedule.
-    When someone mentions a location you should refer to the document to see if there is a bus that stops nearby. 
-    If there are multiple buses that stop nearby then you should respond with the number of each bus you recommend and the name
-    of the bus stop that is closest to their destination. Group the buses by the time they depart. For example,
-    If in Tai Tam the departure times are 3:15, 4:20 and 5pm. If in repulse bay all buses depart at 4pm. 
-    Complete your response with advice about which bus will stop the closest to their destination, the name of the stop
-    stop they should get off at and the name of the suburb that the stop is located in. 
+    When someone mentions a location you should refer to the document to see if there are buses that stop nearby.
+    Respond with advice about which buses will stop the closest to their destination, the name of the stop they 
+    should get off at and the name of the suburb that the stop is located in. 
     Finish with brief instructions for how they can get from the stop to their destination.
+    Group the buses you recommend by the time they depart. If in Tai Tam the departure times are 3:15, 4:20 and 5pm. 
+    If in repulse bay all buses depart at 4pm.
     """
 
     # Send the user message and pdf text to the model and capture the response
