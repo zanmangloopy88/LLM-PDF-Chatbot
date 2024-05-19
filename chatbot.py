@@ -3,16 +3,25 @@
 
 import streamlit as st
 import cohere
-import fitz
+import fitz # An alias for PyMuPDF
 
-# Converts a PDF to a list of 'document' chunks for processing by the Cohere LLM
-# Each 'document' chunk is a dictionary with a 'title' and 'snippet' key
-# Example return value: [{"title": "Page 1 Section 1", "snippet": "Text snippet..."}, ...]
 def pdf_to_documents(pdf_path):
+    """
+    Converts a PDF to a list of 'documents' which are chunks of a larger document that can be easily searched 
+    and processed by the Cohere LLM. Each 'document' chunk is a dictionary with a 'title' and 'snippet' key
+    
+    Args:
+        pdf_path (str): The path to the PDF file.
+    
+    Returns:
+        list: A list of dictionaries representing the documents. Each dictionary has a 'title' and 'snippet' key.
+        Example return value: [{"title": "Page 1 Section 1", "snippet": "Text snippet..."}, ...]
+    """
+
     doc = fitz.open(pdf_path)
+    documents = []
     text = ""
     chunk_size = 1000
-    documents = []
     for page_num in range(len(doc)):
         page = doc.load_page(page_num)
         text = page.get_text()
@@ -26,28 +35,28 @@ def pdf_to_documents(pdf_path):
 with st.sidebar:
     if st.secrets["COHERE_API_KEY"]:
         cohere_api_key = st.secrets["COHERE_API_KEY"]
-        st.write("API key found.")
+        # st.write("API key found.")
     else:
         cohere_api_key = st.text_input("Cohere API Key", key="chatbot_api_key", type="password")
         st.markdown("[Get a Cohere API Key](https://dashboard.cohere.ai/api-keys)")
     
-    document = st.selectbox("Select a document to talk to", ["AP CS Principles CED", "Tai Tam Bus Schedule", "Repulse Bay Bus Schedule"])
-    if document == "AP CS Principles CED":
-        my_documents = pdf_to_documents('apcsp-ced.pdf')
-    elif document == "Tai Tam Bus Schedule":
-        my_documents = pdf_to_documents('HKISTaiTamBusSchedule.pdf')
-    elif document == "Repulse Bay Bus Schedule":    
-        my_documents = pdf_to_documents('HKISRepulseBayBusSchedule.pdf')
+    my_documents = []
+    selected_doc = st.selectbox("Select your departure location", ["Tai Tam Middle School", "Repulse Bay"])
+    if selected_doc == "Tai Tam Bus Schedule":
+        my_documents = pdf_to_documents('docs/HKISTaiTamBusSchedule.pdf')
+    elif selected_doc == "Repulse Bay Bus Schedule":    
+        my_documents = pdf_to_documents('docs/HKISRepulseBayBusSchedule.pdf')
     else:
-        my_documents = pdf_to_documents('apcsp-ced.pdf')
-    st.write(f"Selected document: {document}")
+        my_documents = pdf_to_documents('docs/HKISTaiTamBusSchedule.pdf')
+
+    # st.write(f"Selected document: {selected_doc}")
 
 # Set the title of the Streamlit app
-st.title("💬 Personal Assistant")
+st.title("💬 HKIS Bus Helper")
 
 # Initialize the chat history with a greeting message
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "text": "How can I help you?"}]
+    st.session_state["messages"] = [{"role": "assistant", "text": "Hi! I'm the HKIS Bus Helper. Select your location from the dropdown then ask me where you'd like to go and I'll do my best to find a school bus that will get you there."}]
 
 # Display the chat messages
 for msg in st.session_state.messages:
@@ -66,11 +75,22 @@ if prompt := st.chat_input():
     # Display the user message in the chat window
     st.chat_message("user").write(prompt)
 
+    preamble = """You are the Hong Kong International School Bus Helper bot. You help people understand the bus schedule.
+    When someone mentions a location you should refer to the document to see if there is a bus that stops nearby. 
+    If there are multiple buses that stop nearby then you should respond with the number of each bus you recommend and the name
+    of the bus stop that is closest to their destination. Group the buses by the time they depart. For example,
+    If in Tai Tam the departure times are 3:15, 4:20 and 5pm. If in repulse bay all buses depart at 4pm. 
+    Complete your response with advice about which bus will stop the closest to their destination, the name of the stop
+    stop they should get off at and the name of the suburb that the stop is located in. 
+    Finish with brief instructions for how they can get from the stop to their destination.
+    """
+
     # Send the user message and pdf text to the model and capture the response
     response = client.chat(chat_history=st.session_state.messages,
                            message=prompt,
                            documents=my_documents,
-                           prompt_truncation='AUTO')
+                           prompt_truncation='AUTO',
+                           preamble=preamble)
     
     # Add the user prompt to the chat history
     st.session_state.messages.append({"role": "user", "text": prompt})
