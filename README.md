@@ -1,5 +1,5 @@
 # My First LLM Chatbot
- An example LLM chatbot created with Cohere API and Streamlit
+ An example LLM chatbot created with Cohere API and Streamlit that references a PDF document.
 
 ## Quick Start
 1. [Fork and then clone this repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#about-forks) to a folder on your computer.
@@ -21,7 +21,7 @@
 5. Make minor changes to the code, save and then run your app again to see what happens.
 
 ## Challenges
-- Apply what you discovered working on your first LLM app to enhance the behaviour of the chatbot.
+- Refer to the Cohere [Chat documentation](https://docs.cohere.com/reference/chat) for clues on how to enhance the behaviour of the chatbot.
 - [Complete 'Module 4: Deployment' of the LLMU course on Cohere.com](https://docs.cohere.com/docs/intro-deployment) to create a different kind of LLM powered app with Cohere and Streamlit.
 - Read the [Streamlit Basics guide](https://docs.streamlit.io/get-started/fundamentals/main-concepts) for clues to help you extend the UI of this app further.
 
