@@ -1,4 +1,4 @@
-# An example LLM chatbot using Cohere API and Streamlit
+# An example LLM chatbot using Cohere API and Streamlit that references a PDF
 # Adapted from the StreamLit OpenAI Chatbot example - https://github.com/streamlit/llm-examples/blob/main/Chatbot.py
 
 import streamlit as st

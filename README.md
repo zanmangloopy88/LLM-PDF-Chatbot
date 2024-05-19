@@ -1,4 +1,4 @@
-# My First LLM Chatbot
+# LLM PDF Chatbot
  An example LLM chatbot created with Cohere API and Streamlit that references a PDF document.
 
 ## Quick Start
