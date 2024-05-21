@@ -33,7 +33,7 @@ def pdf_to_documents(pdf_path):
 
 # Add a sidebar to the Streamlit app
 with st.sidebar:
-    if hasattr(st, "COHERE_API_KEY"):
+    if hasattr(st, "secrets"):
         cohere_api_key = st.secrets["COHERE_API_KEY"]
         # st.write("API key found.")
     else:
