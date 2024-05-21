@@ -5,10 +5,16 @@
 1. [Fork and then clone this repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#about-forks) to a folder on your computer.
   
 1. Open Visual Studio Code and then choose **File > Open Folder...** to open and edit the code.
-  
+
 1. Open the terminal window inside Visual Studio Code and type the following command to install the required Python packages.
 
    > pip install -r requirements.txt
+
+1. Type the following terminal commands to create the necessary secrets file. Not having this will result in an error.
+
+   > mkdir .streamlit
+   
+   > touch .streamlit/secrets.toml
 
 4. Run the app by typing the following command in the terminal window. 
    > streamlit run chatbot.py
