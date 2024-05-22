@@ -13,8 +13,10 @@
 1. Type the following terminal commands to create the necessary secrets file. Not having this will result in an error.
 
    > mkdir .streamlit
-   
+
    > touch .streamlit/secrets.toml
+
+   > echo "COHERE_API_KEY = ''" > .streamlit/secrets.toml
 
 4. Run the app by typing the following command in the terminal window. 
    > streamlit run chatbot.py
