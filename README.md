@@ -16,7 +16,7 @@
 
    > touch .streamlit/secrets.toml
 
-   > echo "COHERE_API_KEY = ''" > .streamlit/secrets.toml
+   > echo "COHERE_API_KEY = 'PASTE YOUR API KEY HERE'" > .streamlit/secrets.toml
 
 4. Run the app by typing the following command in the terminal window. 
    > streamlit run chatbot.py
@@ -24,7 +24,7 @@
    A new browser window will open where you can interact with the chatbot.
 
 > [!NOTE]
-> You will need to enter your Cohere API key in the sidebar for the chatbot to work.
+> If you didn't paste a valid Cohere API key into your secrets file you will need to enter it into the sidebar for the chatbot to work.
 
 5. Make minor changes to the code, save and then run your app again to see what happens.
 
@@ -38,5 +38,3 @@
 - Use [Streamlit secrets](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management) to securely pass your API key to the app without having to type it into the sidebar.
 > [!CAUTION]
 > You should never include your API key in any code that you publish online, especially on GitHub. If someone copies your key they can access Cohere using your account without your permission. Creating a secret on Streamlit is the only way to publish your app to automatically use your API key without exposing it for the world to see.
-
-
