@@ -3,7 +3,7 @@
 
 import streamlit as st
 import cohere
-import fitz # An alias for PyMuPDF
+import fitz # An alias for the PyMuPDF library.
 
 def pdf_to_documents(pdf_path):
     """
