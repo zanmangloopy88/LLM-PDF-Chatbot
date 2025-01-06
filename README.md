@@ -8,7 +8,7 @@
 
 1. Open the terminal window inside Visual Studio Code and type the following command to install the required Python packages.
 
-   > pip install -r requirements.txt
+   > pip3 install -r requirements.txt
 
 1. Type the following terminal commands to create the necessary secrets file. Not having this will result in an error.
 
