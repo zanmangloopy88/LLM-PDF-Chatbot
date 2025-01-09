@@ -10,6 +10,8 @@
 
    > pip install -r requirements.txt
 
+   Substitute `pip` for `pip3` if you have problems with this.
+
 1. Type the following terminal commands to create the necessary secrets file. Not having this will result in an error.
 
    > mkdir .streamlit
