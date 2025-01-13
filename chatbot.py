@@ -64,7 +64,7 @@ st.title("💬 HKIS Bus Helper")
 
 # Initialize the chat history with a greeting message
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "text": "Hi! I'm the HKIS Bus Helper. Select your location from the dropdown then ask me where you'd like to go and I'll do my best to find a school bus that will get you there."}]
+    st.session_state["messages"] = [{"role": "Chatbot", "text": "Hi! I'm the HKIS Bus Helper. Select your location from the dropdown then ask me where you'd like to go and I'll do my best to find a school bus that will get you there."}]
 
 # Display the chat messages
 for msg in st.session_state.messages:
@@ -81,7 +81,7 @@ if prompt := st.chat_input():
     client = cohere.Client(api_key=cohere_api_key)
     
     # Display the user message in the chat window
-    st.chat_message("user").write(prompt)
+    st.chat_message("User").write(prompt)
 
     preamble = """You are the Hong Kong International School Bus Helper bot. You help people understand the bus schedule.
     When someone mentions a location you should refer to the document to see if there are buses that stop nearby.
@@ -100,11 +100,11 @@ if prompt := st.chat_input():
                            preamble=preamble)
     
     # Add the user prompt to the chat history
-    st.session_state.messages.append({"role": "user", "text": prompt})
+    st.session_state.messages.append({"role": "User", "text": prompt})
     
     # Add the response to the chat history
     msg = response.text
-    st.session_state.messages.append({"role": "assistant", "text": msg})
+    st.session_state.messages.append({"role": "Chatbot", "text": msg})
 
     # Write the response to the chat window
-    st.chat_message("assistant").write(msg)
+    st.chat_message("Chatbot").write(msg)
