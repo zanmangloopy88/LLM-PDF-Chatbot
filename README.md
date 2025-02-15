@@ -20,8 +20,8 @@
 
    > echo "COHERE_API_KEY = 'PASTE YOUR API KEY HERE'" > .streamlit/secrets.toml
 
-4. Run the app by typing the following command in the terminal window. 
-   > streamlit run chatbot.py
+4. Run the app by typing thestreamlit run chatbot.py following command in the terminal window. 
+   > 
    
    A new browser window will open where you can interact with the chatbot.
 

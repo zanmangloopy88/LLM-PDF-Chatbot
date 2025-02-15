@@ -49,22 +49,19 @@ with st.sidebar:
         st.markdown("[Get a Cohere API Key](https://dashboard.cohere.ai/api-keys)")
     
     my_documents = []
-    selected_doc = st.selectbox("Select your departure location", ["Tai Tam Middle School", "Repulse Bay"])
-    if selected_doc == "Tai Tam Bus Schedule":
-        my_documents = pdf_to_documents('docs/HKISTaiTamBusSchedule.pdf')
-    elif selected_doc == "Repulse Bay Bus Schedule":    
-        my_documents = pdf_to_documents('docs/HKISRepulseBayBusSchedule.pdf')
-    else:
-        my_documents = pdf_to_documents('docs/HKISTaiTamBusSchedule.pdf')
+    cuisine = st.selectbox("Cuisine", ["Japanese", "Chinese", "Italian", "Korean", "Western", "Indian"])
+    #if selected_doc == "Restaurant Guide":
+    my_documents = pdf_to_documents('RestaurantGuide.pdf')
+   
 
     # st.write(f"Selected document: {selected_doc}")
 
 # Set the title of the Streamlit app
-st.title("💬 HKIS Bus Helper")
+st.title("💬 Restaurant Radar")
 
 # Initialize the chat history with a greeting message
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "Chatbot", "text": "Hi! I'm the HKIS Bus Helper. Select your location from the dropdown then ask me where you'd like to go and I'll do my best to find a school bus that will get you there."}]
+    st.session_state["messages"] = [{"role": "Chatbot", "text": "Hello, I'm Restaurant Radar! I'll tell you all the best restaurants in your area based on your indicated preferences. Never fret again about where to eat, just ask me anything!"}]
 
 # Display the chat messages
 for msg in st.session_state.messages:
@@ -83,13 +80,10 @@ if prompt := st.chat_input():
     # Display the user message in the chat window
     st.chat_message("User").write(prompt)
 
-    preamble = """You are the Hong Kong International School Bus Helper bot. You help people understand the bus schedule.
-    When someone mentions a location you should refer to the document to see if there are buses that stop nearby.
-    Respond with advice about which buses will stop the closest to their destination, the name of the stop they 
-    should get off at and the name of the suburb that the stop is located in. 
-    Finish with brief instructions for how they can get from the stop to their destination.
-    Group the buses you recommend by the time they depart. If the document is about Tai Tam then group your recommendations by the following departure times: 3:15, 4:20 and 5pm. 
-    If the document is about repulse bay then state the departure time is 4pm.
+    preamble = f"""You are the Restaurant Radar bot. You help people find the best restaurants nearby based on their preferred cuisine, dietary requirements, average price, area/district in Hong Kong, and wait time.
+    When someone mentions a they are looking for a restaurant serving {cuisine} cuisine, you should refer to the document to see which restaurants fit the description of that cuisine.
+    Respond with advice about which restaurants are the best in the area and fit the cuisine descriptions they mentioned above. 
+    Finish with a brief description about the dietary restrictions, average price, average wait time, and highlights.
     """
 
     # Send the user message and pdf text to the model and capture the response
